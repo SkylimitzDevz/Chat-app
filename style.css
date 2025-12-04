@@ -1,0 +1,285 @@
+/* --- reset ---- */
+
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Prevent font size inflation */
+html {
+  -moz-text-size-adjust: none;
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
+
+/* Remove default margin in favour of better control in authored CSS */
+body, h1, h2, h3, h4, p,
+figure, blockquote, dl, dd {
+  margin-block-end: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  line-height: 1.5;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Set shorter line heights on headings and interactive elements */
+h1, h2, h3, h4,
+button, input, label {
+  line-height: 1.1;
+}
+
+/* Balance text wrapping on headings */
+h1, h2,
+h3, h4 {
+  text-wrap: balance;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+  color: currentColor;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input, button,
+textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Make sure textareas without a rows attribute are not tiny */
+textarea:not([rows]) {
+  min-height: 10em;
+}
+
+/* Anything that has been anchored to should have extra scroll margin */
+:target {
+  scroll-margin-block: 5ex;
+}
+
+/* -------------------------- */
+
+/* styling */
+
+/* ---------------------------- */
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+:root{
+    --light: #FFFFFF;
+    --green: #62FF53;
+    --blue: #80CEFF;
+    --green-transparent: #61ff5327;
+    --blue-transparent: #80ceff2a;
+    --dark: #07090D;
+    --red: #ff5d5d;
+    --red-transparent: #ff5d5d27;
+}
+
+
+body{
+    background: var(--dark);
+    margin: 10px;
+}
+
+body::-webkit-scrollbar{
+    display: none;
+}
+
+.msg-bar{
+    position: fixed;
+    width: 97%;
+    bottom: 50px;
+    display: flex;
+    height: 70px;
+    gap:10px;
+}
+
+.input-container{
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+
+.msg-bar{
+    width: 100%;
+    border-radius: 50px;
+    border: 3px solid var(--green);
+    background: var(--green-transparent);
+    font-size: 20px;
+    position: absolute;
+    box-shadow: 0px 10px 10px var(--shadow);
+    outline: none;
+    caret-color: var(--green);
+    color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#msg-input{
+  background: transparent;
+  padding: 20px;
+  border: none;
+  outline: none;
+  color: var(--light);
+  width: 100%;
+  word-wrap: break-word;
+}
+
+#msg-input::placeholder{
+  color: var(--green-transparent);
+}
+
+
+#send-btn{
+    border-radius: 100%;
+    width: 75px;
+    border: none;
+    height: 60px;
+    background-image: url(icons/Group\ 1.png);
+    background-position: center;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    background-size: contain;
+    transition: all 0.3s ease;
+}
+
+
+#send-btn:hover{
+  transform: scale(1.05);
+}
+
+
+.jump--animation-class{
+  animation-name: jump-animation;
+  animation-duration: 0.8s;
+}
+
+@keyframes jump-animation{
+  0%{
+    
+  }
+  25%{
+    transform: translateY(5px) rotateX(30deg);
+  }
+  50%{
+    transform: translateY(-20px) rotateY(30deg)
+  }
+  75%{
+    transform: translateY(5px) rotateX(30deg);
+  }
+  100%{
+
+  }
+}
+
+.button-shake-animation{
+  animation-name: button-shake;
+  animation-duration: 0.5s;
+}
+
+@keyframes button-shake{
+  0%{
+    
+  }
+  25%{
+    transform: translateX(10px) rotateX(30deg);
+  }
+  50%{
+    transform: translateX(-10px) rotateX(10deg);
+  }
+  75%{
+    transform: translateX(6px) rotateX(5deg);
+  }
+  100%{
+    
+  }
+
+}
+
+
+
+.red-border-adder{
+  animation-name: red-border;
+  animation-duration: 0.5s;
+}
+
+@keyframes red-border{
+  0%{
+    
+  }
+  50%{
+    border-color: var(--red);
+    background-color: var(--red-transparent);
+  }
+  100%{
+
+  }
+}
+
+
+/* ---- messege display ---- */
+
+#msg-section{
+    height: 80%;
+    display: flex;
+    position:absolute;
+    width: 100%;
+    flex-direction: column;
+    gap: 20px;
+    justify-content:end;
+    overflow: hidden;
+}
+
+.recieved-msg, .sent-msg{
+    width: fit-content;
+    padding: 10px;
+    max-width: 300px;
+    font-size: 20px;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+
+
+.recieved-msg{
+    background: var(--blue-transparent);
+    color: var(--light);
+    border-radius: 40px 40px 40px 0px;
+    border: 4px solid var(--blue);
+
+}
+
+.sent-msg{
+    background: var(--green-transparent);
+    border:4px solid var(--green);
+    color: var(--light);
+    border-radius: 40px 40px 0px 40px;
+    margin-left: auto;
+}
