@@ -118,12 +118,13 @@ body::-webkit-scrollbar{
 }
 
 .msg-bar{
-    position: fixed;
-    width: 97%;
-    bottom: 50px;
-    display: flex;
-    height: 70px;
-    gap:10px;
+  position: fixed;
+  width: 97%;
+  /* keep input above safe area / keyboard on mobile */
+  bottom: calc(env(safe-area-inset-bottom, 10px) + 10px);
+  display: flex;
+  height: 70px;
+  gap:10px;
 }
 
 .input-container{
@@ -134,19 +135,18 @@ body::-webkit-scrollbar{
 
 
 .msg-bar{
-    width: 100%;
-    border-radius: 50px;
-    border: 3px solid var(--green);
-    background: var(--green-transparent);
-    font-size: 20px;
-    position: absolute;
-    box-shadow: 0px 10px 10px var(--shadow);
-    outline: none;
-    caret-color: var(--green);
-    color: var(--light);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  border-radius: 50px;
+  border: 3px solid var(--green);
+  background: var(--green-transparent);
+  font-size: 20px;
+  box-shadow: 0px 10px 10px var(--shadow);
+  outline: none;
+  caret-color: var(--green);
+  color: var(--light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 #msg-input{
@@ -255,14 +255,19 @@ body::-webkit-scrollbar{
 /* ---- messege display ---- */
 
 #msg-section{
-    height: 80%;
-    display: flex;
-    position:absolute;
-    width: 100%;
-    flex-direction: column;
-    gap: 20px;
-    justify-content:end;
-    overflow: hidden;
+  /* Fixed-height scrollable message area */
+  height: 70vh;
+  max-height: 70vh;
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  /* bottom padding to avoid overlap with the fixed input bar */
+  padding: 20px 10px 110px;
 }
 
 .recieved-msg, .sent-msg{
