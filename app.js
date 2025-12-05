@@ -64,27 +64,37 @@ sendBtn.addEventListener("click", function () {
 // -------------creates the new messge-----------------------
 
 function writeMsg(msgInput) {
-    const msgDiv = document.createElement("div"); // create NEW msg :D
     // create msg
-    let msg = msgInput.value
-    msgDiv.innerText = msg; //sets the msg
-
-    msgDiv.classList.add("sent-msg");
-    msgContainer.appendChild(msgDiv);
-
+    let msgInputText = msgInput.value
+    let msg = {
+        text: msgInputText,
+        id: 12345
+    }
     push(msgRef, msg)
     msgInput.value = ""
 }
 
-
+// ----- gets the snapshot of the msgs-----
 onValue(msgRef, function (snapshot) {
+    msgContainer.innerHTML = ""
     const msgObject = snapshot.val()
+
     for (let key in msgObject) {
         const msgDiv = document.createElement("div")
-        const currentMsg = msgObject[key]
+        const currentMsg = msgObject[key].text
+        const msgID = msgObject[key].id
+
 
         msgDiv.innerText = currentMsg
-        msgDiv.classList.add("recieved-msg")
         msgContainer.appendChild(msgDiv)
+        if(msgID === 12345){
+            msgDiv.classList.add("sent-msg")
+        }
+        else{
+            msgDiv.classList.add("recieved-msg")
+        }
     }
 })
+
+
+
