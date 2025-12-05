@@ -27,6 +27,30 @@ const msgContainer = document.getElementById("msg-section");
 const msgBar = document.querySelector(".msg-bar")
 const msgInput = document.getElementById("msg-input")
 
+function setVh(){
+    document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`)
+}
+
+function setInputHeight(){
+    const height = msgBar ? msgBar.offsetHeight : 90
+    document.documentElement.style.setProperty('--input-height', `${height}px`)
+}
+
+msgInput.addEventListener('focus', function(){
+    setTimeout(()=>{
+        try{ msgContainer.scrollTo({ top: msgContainer.scrollHeight, behavior: 'smooth' }) }catch(e){}
+    }, 300)
+    setInputHeight()
+})
+
+msgInput.addEventListener('blur', function(){
+    setTimeout(()=> setInputHeight(), 200)
+})
+
+window.addEventListener('resize', function(){ setVh(); setInputHeight() })
+window.addEventListener('orientationchange', function(){ setVh(); setInputHeight() })
+setVh(); setInputHeight();
+
 // Register/login elements
 const registerBtn = document.getElementById("register-btn")
 const usernameInput = document.getElementById("username-input")
@@ -124,18 +148,18 @@ function writeMsg(msgInput, username) {
 
 // ----- gets the snapshot of the msgs-----
 onValue(msgRef, function (snapshot) {
+    // clear and re-render
     msgContainer.innerHTML = ""
     const msgObject = snapshot.val()
+    if(!msgObject) return
 
     for (let key in msgObject) {
+        const data = msgObject[key]
         const msgDiv = document.createElement("div")
-        const currentMsg = msgObject[key].text
-        const currentUsername = msgObject[key].user
+        const currentMsg = data && data.text ? data.text : ''
+        const currentUsername = data && data.user ? data.user : ''
 
-
-        msgDiv.innerHTML = `
-        <h5>${currentUsername}</h5>
-        <p class = "msg-text">${currentMsg}</p>`;
+        msgDiv.innerHTML = `\n        <h5>${currentUsername}</h5>\n        <p class = "msg-text">${currentMsg}</p>`;
 
         msgContainer.appendChild(msgDiv)
         if(currentUsername === getUsernameFromLocalStorage()){
@@ -145,6 +169,11 @@ onValue(msgRef, function (snapshot) {
             msgDiv.classList.add("recieved-msg")
         }
     }
+
+    // always scroll to newest message when messages update
+    requestAnimationFrame(()=>{
+        try{ msgContainer.scrollTop = msgContainer.scrollHeight }catch(e){}
+    })
 })
 
 
@@ -165,7 +194,6 @@ registerBtn.addEventListener("click", async function() {
         const registrationInfo = {
             username: desiredUsername,
             password: password,
-            uuid: 1234
         }
 
         push(userInfoDB, registrationInfo)
