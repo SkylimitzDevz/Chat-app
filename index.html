@@ -4,16 +4,75 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Gibber-Chat</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://www.gstatic.com 'unsafe-eval';">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="
+    default-src 'self';
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.gstatic.com https://*.firebaseio.com https://*.firebasedatabase.app;
+    connect-src 'self' https://*.firebasedatabase.app https://*.firebaseio.com https://www.gstatic.com wss://*.firebasedatabase.app;
+    style-src 'self' 'unsafe-inline';
+    img-src 'self' data:;
+"
+    />
+
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <section id="msg-section">
-    </section>
+    <section id="msg-section"></section>
     <div class="msg-bar">
       <input type="text" id="msg-input" placeholder="Enter Messege :p" />
       <button id="send-btn"></button>
     </div>
+
+    <!-- ---- register/login ---- -->
+
+    <!--Register-->
+    <div class="register-popup">
+      <h1>Register</h1>
+      <div class="input-section">
+        <h3>Type a username</h3>
+        <input
+          type="text"
+          placeholder="Username..."
+          id="username-input"
+          accept="letters"
+          pattern="[A-Za-z]"
+        />
+      </div>
+      <div class="input-section">
+        <h3>Type a password</h3>
+        <input type="text" placeholder="Password..." id="password-input" />
+      </div>
+      <button id="register-btn">Register</button>
+      <div class="log-options">
+        <h5>Already Have an account?</h5>
+        <button id="checkout-login" class="options">Login</button>
+      </div>
+    </div>
+    <!---------------Login--------------->
+    <div class="login-popup">
+      <h1>Login to account</h1>
+      <div class="input-section">
+        <h3>Type your username</h3>
+        <input
+          type="text"
+          placeholder="Username..."
+          id="username-login"
+          accept="letters"
+          pattern="[A-Za-z]"
+        />
+      </div>
+      <div class="input-section">
+        <h3>Type your password</h3>
+        <input type="text" placeholder="Password..." id="password-login" />
+      </div>
+      <button id="login-btn">Login</button>
+      <div class="log-options">
+        <h5>No account yet?</h5>
+        <button id="checkout-register" class="options">Register</button>
+      </div>
+    </div>
+    <!-- --------------------------- -->
   </body>
   <script type="module" src="app.js"></script>
 </html>
