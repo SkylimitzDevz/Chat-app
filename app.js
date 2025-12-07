@@ -65,8 +65,9 @@ const loginCheckout = document.getElementById("checkout-login")
 
 //-------------------send btn onclick----------------------
 
-sendBtn.addEventListener("click", function () {
+sendBtn.addEventListener("click", sendMsg)
 
+function sendMsg() {
     const haveUsername = checkLocalStorage()
 
     if(haveUsername){
@@ -113,7 +114,8 @@ sendBtn.addEventListener("click", function () {
     }
     
 
-})
+}
+
 
 //localstorage check
 function checkLocalStorage(){
@@ -265,4 +267,13 @@ registerCheckout.addEventListener("click", function() {
 loginCheckout.addEventListener("click", function() {
     registerTab.style.transform = "scale(0)"
     loginTab.style.transform = "scale(1)"
+})
+
+
+// listents to the enter key
+
+msgInput.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+        sendMsg()
+    }
 })
