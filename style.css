@@ -101,8 +101,58 @@ textarea:not([rows]) {
     --dark: #07090D;
     --red: #ff5d5d;
     --red-transparent: #ff5d5d27;
+    --scroll-color: #19191a;
 }
 
+nav{
+  height: 60px;
+  position: fixed;
+  align-self: center;
+  border-bottom: 2px solid var(--trasparent-white);
+  background-color: var(--trasparent-white);
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(10px);
+  z-index: 100;
+  transform: translateX(-10px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0px 10px 100px var(--shadow);
+}
+
+.logout-btn{
+  background-color: transparent;
+  background: none;
+  border-radius: 5px;
+  padding: 5px;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.logout-btn img{
+  width: 30px;
+}
+
+.logout-btn:hover{
+  box-shadow: 0px 0px 10px var(--red);
+}
+
+.account-info{
+  height: fit-content;
+  color: var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 600;
+
+}
+
+.account-info h2{
+  align-self: center;
+}
 
 button{
   cursor: pointer;
@@ -141,6 +191,7 @@ body::-webkit-scrollbar{
   bottom: 20px;
   height: 70px;
   gap:10px;
+  backdrop-filter: blur(20px);
 }
 
 #msg-input{
@@ -249,9 +300,8 @@ body::-webkit-scrollbar{
 /* ---- messege display ---- */
 
 #msg-section{
-  /* Fixed-height scrollable message area */
-  height: 70vh;
-  max-height: 70vh;
+  height: 100%;
+  max-height: 100vh;
   display: flex;
   position: relative;
   width: 100%;
@@ -260,8 +310,22 @@ body::-webkit-scrollbar{
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  /* bottom padding to avoid overlap with the fixed input bar */
   padding: 20px 10px 110px;
+  transform: translateY(45px);
+}
+
+#msg-section::-webkit-scrollbar{
+  width: 5px;
+}
+
+#msg-section::-webkit-scrollbar-track{
+  background-color: transparent;
+}
+
+#msg-section::-webkit-scrollbar-thumb{
+  background: var(--scroll-color);
+  border-radius: 10px;
+  max-height: 30px;
 }
 
 .recieved-msg, .sent-msg{
@@ -301,7 +365,7 @@ h5, p{
 /* -------------- register/login -------------------- */
 
 
-/* resyter popup */
+/* resgister popup */
 
 .register-popup{
   border: 2px solid var(--stoke-white);
@@ -435,5 +499,9 @@ h5, p{
     width: 95%;
     align-self: center;
     margin: auto;
+  }
+  
+  #msg-section::-webkit-scrollbar{
+  display: none;
   }
 }
